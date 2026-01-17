@@ -1,0 +1,14 @@
+spring:
+    application:
+        name: server
+    datasource:
+        url: jdbc:postgresql://localhost:5432/matinee
+        username: admin
+        password: matinee
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: none
+    flyway:
+        baseline-on-migrate: true
