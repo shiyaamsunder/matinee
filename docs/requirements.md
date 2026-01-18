@@ -22,7 +22,7 @@ using this document like a scratchbook for my outlines and design. will separate
 - Admins should be able to see all reservations, capacity, and revenue.
 
 
-# DB Schema Design - 17/01/2025
+# DB Schema Design - 17/01/2026
 
 ###  User types
 

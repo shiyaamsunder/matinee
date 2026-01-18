@@ -9,17 +9,26 @@
     -  chose uuid for ids and to generate them in db level.
     -  will prevent duplicates if you have multiple client instances, for example load balanced web servers
 
-TODO for next day
-1. need to check how to map postgres uuid type to jpa
-2. Add proper comments
-3. add on delete on update for foreign keys
-4. valuate whether a trigger is needed for modified_date
-5. Generate ER diagram whenever there is a schema change.
-
-	
-	
-	
 Questions
 
 1. Can we use the interval postgres type for the show timings?
 2. How to account for seat numbers and occupied capacity of a given screen.?
+
+
+## 18/01/2026
+
+TODO for previous day
+- [ ] need to check how to map postgres uuid type to jpa
+- [x] Add proper comments
+- [x] add on delete on update for foreign keys
+- [ ] evaluate whether a trigger is needed for modified_date
+- [ ] Generate ER diagram whenever there is a schema change.
+
+## Thoughts on Auditing
+
+Automatically updating the timestamps as the data gets updated. I wanted to make use of this so that it is possible to track when an entry has been modified. This is but one aspect of the auditing mechanism. Hence the dilemma on whether to use triggers or jpa annotations for handling timestamp updates seems redudant to me.
+I'm seeing polarizing views and takes on where to have the "update" logic for a given entry. Some say having it on db side helps if there are multiple clients trying to update then db will be the source of truth. Others argue that client should always be responsible for updating the timestamp.
+
+Auditing is a planned feature for this backend project. And I'm currently evaluating which framework to use. My current considerations are javers and envers.
+Both has its [pros and cons](https://javers.org/blog/2017/12/javers-vs-envers-comparision.html)
+I will mostly use javers since its a relatively new one compared to envers and is independent of the db type.
