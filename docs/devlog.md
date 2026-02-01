@@ -67,3 +67,94 @@ Added `bruno` for api testing,
 TODO:
 
 - [ ] Update readme.
+
+## 01/02/2026
+
+So a couple of things to unpack. 
+
+### Timestamps 
+Verified whether the `@CreationTimestamp` is working properly. I removed the default `now()` from the table schema and
+used the `@CreationTimestamp` from JPA to generate the timestamp before persisting. I was able to see the timestamp 
+getting populated in DB with a quick endpoint that I hacked together (more info [below](devlog.md#thoughts-on-architecture-and-code-structure)).
+So right now JPA is handling the timestamp creation instead of postgres. If I want, in future I can handle how the timestamp
+gets created before persisting it. Now that's out of the way.
+
+
+### Lombok? Black magic?
+Started using lombok annotations for reducing the boilerplate code. I have worked with it before and never faced any issue,
+until today. I was switching between IDE's and finally settled with intellij yesterday (I was using zed previously) since
+it has more sensible defaults for java development. And last night everything was working fine. Today the code didn't even
+compile for some reason. I was like `wtf!!!`. Then after like hours of googling and chatgpteeing (yes, I use that word regularly)
+found that in order for lombok to work when you do `mvn clean install` you need to define the annotation process path in
+maven compiler plugin configuration.
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <configuration>
+        <source>${java.version}</source>
+        <target>${java.version}</target>
+        <annotationProcessorPaths>
+            <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+            </path>
+        </annotationProcessorPaths>
+    </configuration>
+</plugin>
+```
+
+This will tell maven to process the lombok annotations whenever you manually compile instead of running the project from Intellij
+
+And apparently IntelliJ will do this, if you check the "Enable lombok processing" popup, which I did click. 
+
+New day! new learning!
+
+### Thoughts on Architecture and Code Structure
+
+Whenever I see an enterprise project, I always wonder why the project maintainers choose a specific way to write and maintain code.
+In software development, I feel like there are two schools of thought. 
+1. Write maintainable code from inception. 
+2. Make it work first, ship fast, refactor later.
+
+And every time when I code, I try to follow the first approach but somehow end up fall into the second approach.
+
+Same thing happened here.
+
+Initially my plan was as follows
+
+- Setup proper DB schema
+- Then the domain layer for the entire schema in java
+- Service Layer
+- Controller Layer
+
+I was trying to do a bottom up approach for every entity that I had laid out. It was all going fine, first wrote all the 
+entities and repository layer with proper annotations, but the thing is, I had no way of testing the JPA entities,
+especially the timestamp generation which I mentioned in one of the previous section.So I had to hastily write a 
+controller, dto, entity to dto, and dto to entity converters and a bare minimum service layer with no validations. 
+
+Not a satisfying experience.
+
+> *One of the reason why yesterday's devlog feels very crude with no details :(*
+
+Maybe I should have written tests? or used debug mode during runtime to test the timestamp generation?
+Or, Maybe I should have put that thing in the back seat and worried about it for another day? Not sure.
+
+For now all I need to do this keep moving.
+
+> *Keep on keeping on!*
+
+### Learnings
+
+- `@MappedSuperclass` allows to mark a base class that can provide "persistent" fields to its subclasses but does not 
+make the class itself an entity. Perfect for reusability. Here I used it for creating a `BaseEntity` which contains
+a `created_date` and `modified_date`. And all my entities that inherit this super class will get the timestamp fields.
+- `@CreationTimestamp` and `@UpdateTimestamp`  are hibernate annotations that automatically populates timestamps exactly
+once when an entity is first persisted and updates timestamp with each update respectively.
+- `Lombok` annotation processor needs explicit configuration in order for maven to process the annotations.
+- `@SuperBuilder` Standard `@Builder` works well for single classes but struggles with inheritance. `@SuperBuilder` extends 
+this capability, allowing you to create builder patterns in a hierarchy where subclasses inherit the builder structure 
+of their superclass.
+- Also learned from the [blog](https://protsenko.dev/spring-data-jpa-best-practices-entity-design-guide/) that `@Data`
+annotation might interfere with JPA sometimes. Good to know.
