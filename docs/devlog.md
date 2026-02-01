@@ -66,7 +66,7 @@ Added `bruno` for api testing,
 
 TODO:
 
-- [ ] Update readme.
+- [x] Update readme.
 
 ## 01/02/2026
 
@@ -82,10 +82,10 @@ gets created before persisting it. Now that's out of the way.
 
 ### Lombok? Black magic?
 Started using lombok annotations for reducing the boilerplate code. I have worked with it before and never faced any issue,
-until today. I was switching between IDE's and finally settled with intellij yesterday (I was using zed previously) since
+until today. I was switching between IDE's and finally settled with Intellij yesterday (I was using zed previously) since
 it has more sensible defaults for java development. And last night everything was working fine. Today the code didn't even
 compile for some reason. I was like `wtf!!!`. Then after like hours of googling and chatgpteeing (yes, I use that word regularly)
-found that in order for lombok to work when you do `mvn clean install` you need to define the annotation process path in
+found that in order for lombok to work when you do `mvn clean install` you need to define the annotation processer path in
 maven compiler plugin configuration.
 
 ```xml
@@ -141,7 +141,7 @@ Not a satisfying experience.
 Maybe I should have written tests? or used debug mode during runtime to test the timestamp generation?
 Or, Maybe I should have put that thing in the back seat and worried about it for another day? Not sure.
 
-For now all I need to do this keep moving.
+For now, all I need to do is, keep on moving.
 
 > *Keep on keeping on!*
 
