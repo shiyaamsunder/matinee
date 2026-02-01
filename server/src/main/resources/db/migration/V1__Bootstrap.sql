@@ -3,8 +3,8 @@ CREATE TABLE MT_USER (
     username    VARCHAR(64) NOT NULL,
     pw_hash     VARCHAR(256) NOT NULL,
     role        VARCHAR(64) NOT NULL,
-    created_date TIMESTAMP DEFAULT now(),
-    modified_date TIMESTAMP DEFAULT now()
+    created_date TIMESTAMP NOT NULL,
+    modified_date TIMESTAMP NOT NULL
 );
 
 CREATE UNIQUE INDEX idx_user_username ON MT_USER (username);
@@ -20,8 +20,8 @@ CREATE TABLE MOVIE (
     rating       NUMERIC,
     genre        VARCHAR(64),
     release_date TIMESTAMP,
-    created_date TIMESTAMP DEFAULT now(),
-    modified_date TIMESTAMP DEFAULT now()
+    created_date TIMESTAMP NOT NULL,
+    modified_date TIMESTAMP NOT NULL
 );
 
 COMMENT ON TABLE MOVIE IS 'Contains details about the movie.';
@@ -37,8 +37,8 @@ CREATE TABLE SCREEN (
     audio_type  VARCHAR(128),
     projection_type VARCHAR(128),
     resolution VARCHAR(128),
-    created_date TIMESTAMP DEFAULT now(),
-    modified_date TIMESTAMP DEFAULT now()
+    created_date TIMESTAMP NOT NULL,
+    modified_date TIMESTAMP NOT NULL
 );
 
 CREATE INDEX idx_screen_screen_name ON SCREEN (screen_name);
@@ -54,8 +54,8 @@ CREATE TABLE SHOWTIME(
     movie_id        UUID REFERENCES MOVIE(movie_id) ON DELETE CASCADE NOT NULL,
     show_start      TIMESTAMP NOT NULL,
     show_end        TIMESTAMP NOT NULL,
-    created_date TIMESTAMP DEFAULT now(),
-    modified_date TIMESTAMP DEFAULT now()
+    created_date TIMESTAMP NOT NULL,
+    modified_date TIMESTAMP NOT NULL
 );
 
 COMMENT ON TABLE SHOWTIME IS 'Table which links a screen with a movie for specified showtime';
@@ -72,8 +72,8 @@ CREATE TABLE RESERVATION (
     price           NUMERIC,
     completed       BOOLEAN DEFAULT false NOT NULL,
     cancelled       BOOLEAN DEFAULT false NOT NULL,
-    created_date TIMESTAMP DEFAULT now(),
-    modified_date TIMESTAMP DEFAULT now()
+    created_date TIMESTAMP NOT NULL,
+    modified_date TIMESTAMP NOT NULL
 );
 
 COMMENT ON TABLE RESERVATION IS 'This table represents a reservation made against a movie in a specified screen and showtime';
