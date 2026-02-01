@@ -114,11 +114,12 @@ New day! new learning!
 ### Thoughts on Architecture and Code Structure
 
 Whenever I see an enterprise project, I always wonder why the project maintainers choose a specific way to write and maintain code.
+
 In software development, I feel like there are two schools of thought. 
 1. Write maintainable code from inception. 
 2. Make it work first, ship fast, refactor later.
 
-And every time when I code, I try to follow the first approach but somehow end up fall into the second approach.
+And every time when I code, I try to follow the first approach but somehow end up falling into the second approach.
 
 Same thing happened here.
 
