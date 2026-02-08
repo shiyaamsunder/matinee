@@ -159,3 +159,33 @@ this capability, allowing you to create builder patterns in a hierarchy where su
 of their superclass.
 - Also learned from the [blog](https://protsenko.dev/spring-data-jpa-best-practices-entity-design-guide/) that `@Data`
 annotation might interfere with JPA sometimes. Good to know.
+
+## 07/02/2026
+
+Sat down tonight to finish setting up global exception handlers with custom error responses.
+Then I came across something called `ProblemDetail` - [RFC9457](https://datatracker.ietf.org/doc/html/rfc9457) which seems
+like a new standard for HTTP error responses. But I was conflicted with this new "ProblemDetail" which has fields like
+`type` `detail` `instance` but I'm not sure if this has been adopted as a standard in the web world. 
+
+
+## 08/02/2026
+
+After contemplating the entire night, decided to go with the `ProblemDetail` based error responses since its supported 
+by spring boot out of the box, hence I don't need to write extra code for error response handling.
+
+Wrote complete end to end code for the following endpoints
+
+- `getUserById - GET /matinee/api/v1/users/:id`
+- `getUserByUsername - GET /matinee/api/v1/users?username=<username>`
+- `addNewUser - POST /matinee/api/v1/users`
+
+
+Changelog
+
+- Custom Response Entity - MatineeResponse
+- Custom Exceptions
+  - MatineeBaseException
+  - MatineeNotFoundException
+- Unit Tests covering Service and Converters
+- Added JaCoCo reports for code and test coverage
+- Wrote unit tests with 89% coverage.

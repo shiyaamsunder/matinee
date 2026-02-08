@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MatineeUserConverter {
 
-
     public MatineeUser convertToEntity(MatineeUserDTO matineeUserDTO){
         return MatineeUser.builder()
+                .userId(matineeUserDTO.getId())
                 .userName(matineeUserDTO.getUserName())
                 .passwordHash(matineeUserDTO.getPasswordHash())
                 .role(matineeUserDTO.getRole()).build();
