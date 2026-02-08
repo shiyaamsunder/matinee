@@ -27,5 +27,19 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
         cache: maven
+
+    - name: Start Postgres using Docker Compose
+      run: docker compose up -d
+
+    - name: Wait for Postgres to be ready
+      run: |
+          echo "Waiting for Postgres..."
+          until docker exec postgres pg_isready -U postgres; do
+            sleep 2
+          done
+
+    - name: Run Flyway Migrations
+      run: mvn -B flyway:migrate --file server/pom.xml    
+    
     - name: Build with Maven
       run: mvn -B package --file server/pom.xml
