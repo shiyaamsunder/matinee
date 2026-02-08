@@ -1,6 +1,5 @@
 package com.matinee.server.controller;
 
-import com.matinee.server.converter.MatineeUserConverter;
 import com.matinee.server.service.impl.MatineeUserServiceImpl;
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,8 +20,5 @@ public class MatineeUserControllerTest {
 
     @MockitoBean
     private MatineeUserServiceImpl matineeUserService;
-
-    @MockitoBean
-    private MatineeUserConverter matineeUserConverter;
 
 }
