@@ -189,3 +189,20 @@ Changelog
 - Unit Tests covering Service and Converters
 - Added JaCoCo reports for code and test coverage
 - Wrote unit tests with 89% coverage.
+
+
+Error Handling needs more work. Right now it's awful. 
+
+I will move forward with writing the get/post api endpoints for rest of the entities.
+
+
+Worked a little bit more.
+
+Added a library called Mapstruct to handle the entity <=> dto conversions.
+Wrote skeleton Service interfaces for rest of the entities
+Wrote DTOs for rest of the entities
+
+
+- [ ] Complete Service Implementation for remaining entities
+- [ ] Complete Controllers for remaining entities
+- [x] Keep on keeping on

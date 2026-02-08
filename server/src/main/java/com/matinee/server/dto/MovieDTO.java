@@ -1,0 +1,34 @@
+package com.matinee.server.dto;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalTime;
+import java.util.UUID;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class MovieDTO {
+    private UUID movieId;
+
+    @NotBlank(message = "title should not be empty")
+    private String title;
+
+    private String image;
+
+    private String description;
+
+    private Float rating;
+
+    private String genre;
+
+    private LocalTime releaseDate;
+
+}

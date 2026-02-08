@@ -3,7 +3,9 @@ package com.matinee.server.service;
 
 import com.matinee.server.domain.entity.MatineeUser;
 import com.matinee.server.domain.repository.MatineeUserRepository;
+import com.matinee.server.dto.MatineeUserDTO;
 import com.matinee.server.exceptions.MatineeNotFoundException;
+import com.matinee.server.mapper.MatineeUserMapper;
 import com.matinee.server.service.impl.MatineeUserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,18 +25,29 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class MatineeUserServiceTest {
 
-    @Mock
-    private MatineeUserRepository matineeUserRepository;
-
     @InjectMocks
     private MatineeUserServiceImpl matineeUserService;
 
+    @Mock
+    private MatineeUserRepository matineeUserRepository;
+
+    @Mock
+    private MatineeUserMapper matineeUserMapper;
+
+
     private MatineeUser mockUser;
+
+    private MatineeUserDTO mockUserDTO;
 
     @BeforeEach
     void setup(){
         this.mockUser = MatineeUser.builder()
                 .userId(UUID.fromString("31277953-2c24-4dc3-9b9d-0ab26da823e2"))
+                .userName("mockUser1")
+                .role("user")
+                .build();
+
+        this.mockUserDTO = MatineeUserDTO.builder()
                 .userName("mockUser1")
                 .role("user")
                 .build();
@@ -78,9 +91,9 @@ public class MatineeUserServiceTest {
 
     @Test
     void testAddNewMatineeUser(){
+        when(matineeUserMapper.convertToEntity(mockUserDTO)).thenReturn(mockUser);
         when(matineeUserRepository.save(mockUser)).thenReturn(mockUser);
-
-        MatineeUser savedUser = matineeUserService.addNewMatineeUser(mockUser);
+        MatineeUser savedUser = matineeUserService.addNewMatineeUser(mockUserDTO);
 
         assertNotNull(savedUser);
     }

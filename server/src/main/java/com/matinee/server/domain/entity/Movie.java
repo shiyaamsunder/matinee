@@ -22,7 +22,7 @@ public class Movie extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID movie_id;
+    private UUID movieId;
 
     @Column
     private String title;
@@ -40,5 +40,5 @@ public class Movie extends BaseEntity {
     private String genre;
 
     @Column
-    private LocalTime release_date;
+    private LocalTime releaseDate;
 }
