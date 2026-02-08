@@ -1,14 +1,6 @@
 package com.matinee.server.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.matinee.server.domain.entity.MatineeUser;
-import com.matinee.server.domain.entity.Showtime;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
