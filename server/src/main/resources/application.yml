@@ -15,3 +15,7 @@ spring:
     mvc:
         problemdetails:
             enabled: true
+
+springdoc:
+    swagger-ui:
+        operationsSorter: method

@@ -48,11 +48,14 @@ public class MatineeUserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MatineeUserDTO> addUser(@Valid @RequestBody MatineeUserDTO matineeUserDTO){
+    public ResponseEntity<MatineeResponse<MatineeUserDTO>> addUser(@Valid @RequestBody MatineeUserDTO matineeUserDTO){
 
         MatineeUser savedMatineeUserDomain = matineeUserService.addNewMatineeUser(matineeUserDTO);
         MatineeUserDTO matineeUserResponse = matineeUserMapper.convertToDTO(savedMatineeUserDomain);
 
-        return new ResponseEntity<>(matineeUserResponse, HttpStatus.CREATED);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(MatineeResponse.<MatineeUserDTO>builder()
+                        .result(matineeUserResponse).build());
     }
 }
