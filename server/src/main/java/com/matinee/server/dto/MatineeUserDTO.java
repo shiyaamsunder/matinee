@@ -18,8 +18,8 @@ public class MatineeUserDTO {
 
     private UUID userId;
 
-    @NotBlank(message = "userName should not be empty")
-    private String userName;
+    @NotBlank(message = "username should not be empty")
+    private String username;
 
     @NotBlank(message = "passwordHash should not be empty")
     private String passwordHash;

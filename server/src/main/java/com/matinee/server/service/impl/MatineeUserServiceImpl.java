@@ -6,7 +6,9 @@ import com.matinee.server.dto.MatineeUserDTO;
 import com.matinee.server.exceptions.MatineeNotFoundException;
 import com.matinee.server.mapper.MatineeUserMapper;
 import com.matinee.server.service.MatineeUserService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -27,6 +29,11 @@ public class MatineeUserServiceImpl implements MatineeUserService {
     }
 
     @Override
+    public @NonNull UserDetails loadUserByUsername(@NonNull String username){
+        return getMatineeUserByUserName(username);
+    }
+
+    @Override
     public MatineeUser getMatineeUserById(UUID userId) {
 
        return matineeUserRepository.findById(userId)
@@ -36,8 +43,13 @@ public class MatineeUserServiceImpl implements MatineeUserService {
     @Override
     public MatineeUser getMatineeUserByUserName(String username){
 
-        return matineeUserRepository.findByUserName(username)
+        return matineeUserRepository.findByUsername(username)
                 .orElseThrow(() -> new MatineeNotFoundException("User not found"));
+    }
+
+    @Override
+    public boolean existsByUsername(String username){
+        return matineeUserRepository.existsByUsername(username);
     }
 
     @Override

@@ -43,12 +43,12 @@ public class MatineeUserServiceTest {
     void setup(){
         this.mockUser = MatineeUser.builder()
                 .userId(UUID.fromString("31277953-2c24-4dc3-9b9d-0ab26da823e2"))
-                .userName("mockUser1")
+                .username("mockUser1")
                 .role("user")
                 .build();
 
         this.mockUserDTO = MatineeUserDTO.builder()
-                .userName("mockUser1")
+                .username("mockUser1")
                 .role("user")
                 .build();
 
@@ -67,12 +67,12 @@ public class MatineeUserServiceTest {
     @Test
     void testGetMatineeUserByUsername(){
 
-        when(matineeUserRepository.findByUserName(mockUser.getUserName())).thenReturn(Optional.ofNullable(this.mockUser));
+        when(matineeUserRepository.findByUsername(mockUser.getUsername())).thenReturn(Optional.ofNullable(this.mockUser));
 
-        MatineeUser matineeUser = matineeUserService.getMatineeUserByUserName(mockUser.getUserName());
+        MatineeUser matineeUser = matineeUserService.getMatineeUserByUserName(mockUser.getUsername());
 
         assertNotNull(matineeUser);
-        assertEquals(this.mockUser.getUserName(), matineeUser.getUserName());
+        assertEquals(this.mockUser.getUsername(), matineeUser.getUsername());
     }
 
     @Test
@@ -84,9 +84,9 @@ public class MatineeUserServiceTest {
 
     @Test
     void testGetMatineeUserByUserName_WhenNotFound(){
-        when(matineeUserRepository.findByUserName(mockUser.getUserName())).thenReturn(Optional.empty());
+        when(matineeUserRepository.findByUsername(mockUser.getUsername())).thenReturn(Optional.empty());
 
-        assertThrows(MatineeNotFoundException.class, ()-> matineeUserService.getMatineeUserByUserName(mockUser.getUserName()));
+        assertThrows(MatineeNotFoundException.class, ()-> matineeUserService.getMatineeUserByUserName(mockUser.getUsername()));
     }
 
     @Test

@@ -8,5 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MatineeUserRepository
     extends JpaRepository<MatineeUser, UUID> {
-    Optional<MatineeUser> findByUserName(String userName);
+
+    Optional<MatineeUser> findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }
