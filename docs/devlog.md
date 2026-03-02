@@ -206,3 +206,43 @@ Wrote DTOs for rest of the entities
 - [ ] Complete Service Implementation for remaining entities
 - [ ] Complete Controllers for remaining entities
 - [x] Keep on keeping on
+
+## 02/03/2026
+
+Again, I was not able to focus on this project, this was a huge break, a lot of stuff happened,
+and I'm trying to process and move on.
+
+Today I was able to implement a basic signup endpoint with basic username and password auth.
+
+I had zero experience with spring security, since most of the codebases I work with already have this setup and there is
+no way for me learn it from start. So I sat down on Friday, slowly read some articles, went through other people code,
+gained a basic understanding on how Spring handles security.
+
+So Spring Security is really good. So there are Filters and Configurations.
+
+One of the main filter is DispatcherServlet, this is the one that intercepts the http requests and sends it to the
+appropriate Controller. 
+
+And Spring Security by default setups a load of filters before this main filter forming what's called a "filter chain".
+
+It has filters like BasicAuth, UsernamePasswordAuth, DefaultLoginPage filters etc. and so on.
+
+But for my use case I don't need these.
+
+My idea is to have two auth endpoints.
+
+`auth/signup` - Creates a user with encrypted password and that's it!.
+`auth/signin` - Authenticates the user and returns a jwt token.
+
+Then the subsequent requests for any other api endpoints will be authorized using that jwt token which will be implemented
+using "Filters!!!".
+
+Changelog
+
+- Added spring-security package.
+- Implemented `auth/signup` endpoint
+
+
+### References:
+- https://www.marcobehler.com/guides/spring-security#_filterchain_security_configuration_dsl
+- https://dev.to/anand_jaisy_2f7644a12001b/spring-authorization-server-spring-security-with-custom-user-details-service-for-flexible-105b
